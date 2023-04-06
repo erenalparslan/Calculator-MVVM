@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +16,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_extra.*
 
-class extra : AppCompatActivity() {
+class Extra : AppCompatActivity() {
 
     private lateinit var notes: MutableList<Note>
     private lateinit var sharedPreferences: SharedPreferences
@@ -95,8 +94,8 @@ class extra : AppCompatActivity() {
                 deleteButton.setOnClickListener {
                     val position = adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        (itemView.context as extra).adapter.removeAt(position)
-                        (itemView.context as extra).saveNotes((itemView.context as extra).notes)
+                        (itemView.context as Extra).adapter.removeAt(position)
+                        (itemView.context as Extra).saveNotes((itemView.context as Extra).notes)
                     }
                 }
             }

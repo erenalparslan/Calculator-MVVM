@@ -2,19 +2,24 @@ package com.calculator
 
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onData
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.*
+import junit.framework.Assert.assertEquals
+import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
 import org.junit.Test
 
 class MainActivityTest {
+        private var  activityScenario :ActivityScenario<Extra>?=null
 
 
     @Before
     fun setup(){
-        ActivityScenario.launch(MainActivity::class.java)
+       ActivityScenario.launch(MainActivity::class.java)
     }
 
     @Test
@@ -108,6 +113,11 @@ class MainActivityTest {
     @Test
     fun displayToolbar(){
         Espresso.onView(ViewMatchers.withId(R.id.my_toolbar)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
+    @Test
+    fun displayMenu(){
+        Espresso.onView(isRoot()).perform(ViewActions.pressMenuKey())
+        Espresso.onView(ViewMatchers.withText("Not Al")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
 
@@ -236,6 +246,14 @@ class MainActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.dot)).perform(click())
         Espresso.onView(ViewMatchers.withId(R.id.expression)).check(ViewAssertions.matches(ViewMatchers.withText("9.")))
     }
+    @Test
+    fun pressNotAl(){
+        Espresso.onView(isRoot()).perform(ViewActions.pressMenuKey())
+        Espresso.onView(ViewMatchers.withText("Not Al")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Thread.sleep(1000)
+        Espresso.onView(ViewMatchers.withText("Not Al")).perform(click())
+    }
+
     }
 
 

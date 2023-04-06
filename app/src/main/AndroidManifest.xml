@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Calculator">
         <activity
-            android:name=".extra"
+            android:name=".Extra"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

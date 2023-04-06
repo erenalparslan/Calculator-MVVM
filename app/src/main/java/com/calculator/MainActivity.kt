@@ -6,9 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.HorizontalScrollView
-import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_main.*
@@ -125,7 +123,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.add_art_item) {
-            val intent = Intent(this@MainActivity, extra::class.java)
+            val intent = Intent(this@MainActivity, Extra::class.java)
             intent.putExtra("result", result.text.toString())
             startActivity(intent)
         }
