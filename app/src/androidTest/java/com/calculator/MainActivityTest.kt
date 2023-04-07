@@ -14,7 +14,7 @@ import org.junit.Before
 import org.junit.Test
 
 class MainActivityTest {
-        private var  activityScenario :ActivityScenario<Extra>?=null
+
 
 
     @Before

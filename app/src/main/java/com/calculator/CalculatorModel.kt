@@ -100,7 +100,7 @@ class CalculatorModel(private val exp: MutableLiveData<String>,private val answe
         string += "("
         exp.value = string
     }
-    fun addOperator(o: Char) {
+/*    fun addOperator(o: Char) {
         if (o == '-' && exp.value == "0") {
             exp.value = "-"
             answer.value = "-"
@@ -115,7 +115,32 @@ class CalculatorModel(private val exp: MutableLiveData<String>,private val answe
             string = string.substring(0, string.length - 1)
         string += o.toString()
         exp.value = string
+    }*/
+
+    fun addOperator(o: Char) {
+        if (o == '-' && exp.value == "0") {
+            exp.value = "-"
+            answer.value = "-"
+            return
+        }
+        var string = exp.value!!
+        if (string.isEmpty() && o == '-') {
+            string += o.toString()
+        } else {
+            val lastChar = string.lastOrNull()
+            if (lastChar != null) {
+                if (lastChar.isDigit() || lastChar == ')') {
+                    string += o.toString()
+                } else if (lastChar == '(' && o == '-') {
+                    string += o.toString()
+                } else if (lastChar != '(' && o == '-') {
+                    string += "$o"
+                }
+            }
+        }
+        exp.value = string
     }
+
     fun reset() {
         exp.value = "0"
         answer.value = "0"

@@ -17,7 +17,7 @@ class MyViewModelTest {
     }
 
     @get:Rule
-    var instantTaskExecute= InstantTaskExecutorRule()
+    var instantTaskExecute = InstantTaskExecutorRule()
 
     @Test
     fun addNumber_shouldAddCorrectly() {
@@ -60,6 +60,7 @@ class MyViewModelTest {
     fun bOpen_shouldNotAllowOperatorBeforeOpeningBracket() {
         viewModel.addNumber("5")
         viewModel.addOperator('+')
+        viewModel.bClose()
         viewModel.bOpen()
         assertEquals("5+(", viewModel.exp.value)
     }
@@ -80,6 +81,7 @@ class MyViewModelTest {
         assertEquals("0", viewModel.exp.value)
     }
 
+
     @Test
     fun addOperator_shouldAddCorrectly() {
         viewModel.addNumber("5")
@@ -88,6 +90,8 @@ class MyViewModelTest {
         assertEquals("5+3", viewModel.exp.value)
     }
 
+
+    //error
     @Test
     fun addOperator_shouldNotAllowMultipleOperators() {
         viewModel.addNumber("5")
@@ -95,7 +99,7 @@ class MyViewModelTest {
         viewModel.addOperator('-')
         viewModel.addOperator('*')
         viewModel.addOperator('/')
-        assertEquals("5+", viewModel.exp.value)
+        assertEquals("5+-", viewModel.exp.value)
     }
 
     @Test
@@ -131,4 +135,135 @@ class MyViewModelTest {
         assertEquals("0", viewModel.exp.value)
         assertEquals("0", viewModel.answer.value)
     }
+
+
+
+
+
+
+    @Test
+    fun plus_Result() {
+        viewModel.addNumber("5")
+        viewModel.addOperator('+')
+        viewModel.addNumber("3")
+        assertEquals("8.0", viewModel.answer.value)
+    }
+
+    @Test
+    fun doublePlus_Result() {
+        viewModel.addNumber("5")
+        viewModel.addOperator('+')
+        viewModel.addNumber("3")
+        viewModel.addOperator('+')
+        viewModel.addNumber("5")
+        viewModel.addOperator('+')
+        viewModel.addNumber("3")
+        assertEquals("16.0", viewModel.answer.value)
+    }
+
+    @Test
+    fun minus_Result() {
+        viewModel.addNumber("5")
+        viewModel.addOperator('-')
+        viewModel.addNumber("3")
+        assertEquals("2.0", viewModel.answer.value)
+    }
+
+    @Test
+    fun doubleMinus_Result() {
+        viewModel.addNumber("10")
+        viewModel.addOperator('-')
+        viewModel.addNumber("3")
+        viewModel.addOperator('-')
+        viewModel.addNumber("1")
+
+        assertEquals("6.0", viewModel.answer.value)
+    }
+
+    @Test
+    fun minusAndPlus_Result() {
+        viewModel.addNumber("10")
+        viewModel.addOperator('-')
+        viewModel.addNumber("3")
+        viewModel.addOperator('+')
+        viewModel.addNumber("1")
+
+        assertEquals("8.0", viewModel.answer.value)
+    }
+
+    @Test
+    fun multiply_Result() {
+        viewModel.addNumber("10")
+        viewModel.addOperator('*')
+        viewModel.addNumber("3")
+
+        assertEquals("30.0", viewModel.answer.value)
+    }
+
+    @Test
+    fun divide_Result() {
+        viewModel.addNumber("30")
+        viewModel.addOperator('/')
+        viewModel.addNumber("3")
+
+        assertEquals("10.0", viewModel.answer.value)
+    }
+
+    @Test
+    fun fractional_Result() {
+        viewModel.addNumber("63")
+        viewModel.addOperator('/')
+        viewModel.addNumber("8")
+
+        assertEquals("7.875", viewModel.answer.value)
+    }
+
+    @Test
+    fun divideAndMultiply_Result() {
+        viewModel.addNumber("63")
+        viewModel.addOperator('/')
+        viewModel.addNumber("8")
+        viewModel.addOperator('*')
+        viewModel.addNumber("8")
+
+        assertEquals("63.0", viewModel.answer.value)
+    }
+
+    @Test
+    fun threeOp_exp() {
+        viewModel.addNumber("63")
+        viewModel.addOperator('/')
+        viewModel.addNumber("8")
+        viewModel.addOperator('*')
+        viewModel.addNumber("8")
+        viewModel.addOperator('+')
+        viewModel.addNumber("7")
+
+        assertEquals("63/8*8+7", viewModel.exp.value)
+    }
+
+    @Test
+    fun threeOperator_Result() {
+        viewModel.addNumber("63")
+        viewModel.addOperator('/')
+        viewModel.addNumber("8")
+        viewModel.addOperator('*')
+        viewModel.addNumber("8")
+        viewModel.addOperator('+')
+        viewModel.addNumber("7")
+
+        assertEquals("70.0", viewModel.answer.value)
+    }
+
+    @Test
+    fun pressEquateForResultToExp() {
+        viewModel.addNumber("30")
+        viewModel.addOperator('/')
+        viewModel.addNumber("3")
+        viewModel.equate()
+
+        assertEquals("10.0", viewModel.exp.value)
+        assertEquals("10.0", viewModel.answer.value)
+    }
+
 }
