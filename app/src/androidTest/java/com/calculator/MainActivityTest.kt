@@ -22,6 +22,19 @@ class MainActivityTest {
        ActivityScenario.launch(MainActivity::class.java)
     }
 
+
+    val buttonIds = listOf(R.id.n0, R.id.n1, R.id.n2, R.id.n3, R.id.n4, R.id.n5, R.id.n6, R.id.n7, R.id.n8, R.id.n9,
+        R.id.clear, R.id.equal, R.id.delete, R.id.divide, R.id.multiply, R.id.plus, R.id.minus, R.id.bClose, R.id.bOpen,
+        R.id.dot, R.id.result, R.id.expression, R.id.my_toolbar)
+
+
+        @Test
+        fun displayButton() {
+            for (buttonId in buttonIds) {
+            Espresso.onView(ViewMatchers.withId(buttonId)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))}
+        }
+
+
     @Test
     fun display0Button(){
         Espresso.onView(ViewMatchers.withId(R.id.n0)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -114,6 +127,7 @@ class MainActivityTest {
     fun displayToolbar(){
         Espresso.onView(ViewMatchers.withId(R.id.my_toolbar)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
+
     @Test
     fun displayMenu(){
         Espresso.onView(isRoot()).perform(ViewActions.pressMenuKey())
